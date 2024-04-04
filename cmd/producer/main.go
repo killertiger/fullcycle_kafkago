@@ -31,7 +31,10 @@ func main() {
 
 func NewKafkaProducer() *kafka.Producer {
 	configMap := &kafka.ConfigMap{
-		"bootstrap.servers": "gokafka_kafka:9092",
+		"bootstrap.servers":   "gokafka_kafka:9092",
+		"delivery.timeout.ms": "0",    // 0 means infinite timeout
+		"acks":                "all",  // ensure that the message is written to all replicas before acknowledging the producer
+		"enable.idempotence":  "true", // ensure that the message is written only once
 	}
 
 	p, err := kafka.NewProducer(configMap)
