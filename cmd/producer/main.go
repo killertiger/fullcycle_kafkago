@@ -10,12 +10,13 @@ import (
 func main() {
 	deliveryChan := make(chan kafka.Event)
 	producer := NewKafkaProducer()
-	Publish("mensagem", "mytest", producer, nil, deliveryChan)
+	// setting the key will ensure that the message is delivered to the same partition
+	Publish("transfer sent", "mytest", producer, []byte("transfer"), deliveryChan)
 
 	go DeliveryReport(deliveryChan)
 
 	fmt.Println("Delivery report channel created")
-	producer.Flush(1000)
+	producer.Flush(5000)
 
 	// wait for delivery report
 	// e := <-deliveryChan
