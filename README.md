@@ -11,8 +11,22 @@ http://localhost:9021/
 ```
 $docker exec -it gokafka_kafka bash
 
-$ kafka-topics --create --bootstrap-server=localhost:9092 --topic=teste --partitions=3
+$ kafka-topics --create --bootstrap-server=localhost:9092 --topic=mytest --partitions=3
 Created topic teste.
 
 $ kafka-console-consumer --bootstrap-server=localhost:9092 --topic=mytest
+```
+
+## Running the project
+
+Producer
+```
+$ docker exec -it gokafka bash
+$ go run cmd/producer/main.go
+```
+
+Consumer
+```
+$ docker exec -it gokafka bash
+$ go run cmd/consumer/main.go 
 ```
